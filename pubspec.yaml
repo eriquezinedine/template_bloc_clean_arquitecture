@@ -40,6 +40,7 @@ dependencies:
   hive_flutter: ^1.1.0
   date_format:
   flutter_slidable: ^2.0.0
+  lottie: ^1.4.2
 
 dev_dependencies:
   flutter_test:

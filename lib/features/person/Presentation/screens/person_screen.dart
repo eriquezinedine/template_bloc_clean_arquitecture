@@ -1,17 +1,18 @@
-import 'package:clean_arquitecture_bloc_hive/features/person/Domain/services/person_service.dart';
 import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/bloc/person_bloc.dart';
-import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/widgets/push_person.dart';
+import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/screens/person_register_screen.dart';
 import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/widgets/slidable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 
 class PersonScreen extends StatelessWidget {
    
   const PersonScreen({Key? key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
+    final PersonBloc personBloc = BlocProvider.of<PersonBloc>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -37,7 +38,10 @@ class PersonScreen extends StatelessWidget {
                       child: ElevatedButton(
                         child: const Text('Agregar'),
                         onPressed: (){
-                          Navigator.of(context).pushNamed('person');
+                          // Navigator.of(context).pushNamed('/person');
+                          Navigator.push(context, 
+                            MaterialPageRoute(builder: (context)=> PersonRegisterScreen(personBloc: personBloc ))
+                          );
                         },
                       ),
                     )
@@ -54,27 +58,32 @@ class PersonScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 20,),
-                BlocProvider(
-                  create: (context) => PersonBloc(RepositoryProvider.of<PersonService>(context))
-                  ..add(const LoadPersonEvent()),
-                  child: BlocBuilder<PersonBloc, PersonState>(
+                BlocBuilder<PersonBloc, PersonState>(
                     builder: (context, state) {
                       if(state is PersonLoadedState){
                         if(state.persons.isEmpty){
-                          return const Text('Vacio papu');
+                          return Center(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children:  [
+                                Lottie.network('https://assets4.lottiefiles.com/private_files/lf30_e3pteeho.json'),
+                                const Text('Vacio papu'),
+                              ],
+                            ),
+                          );
                         }
                         return ListView(
                           shrinkWrap: true,
                           children: [
                             ...state.persons
-                            .map((e) => SlidableWidget(person: e,)).toList()
+                            .map((e) => SlidableWidget(person: e,personBloc: personBloc,)).toList()
                           ],
                         );
                       }
                       return const CircularProgressIndicator();
                     },
                   ),
-                )
               ],
             ),
           ),

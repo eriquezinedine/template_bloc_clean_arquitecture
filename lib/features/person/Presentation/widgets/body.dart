@@ -6,20 +6,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/presentation/widgets/dropdown_widget.dart';
 import '../../../../core/presentation/widgets/input_widget.dart';
 
+
 class Body extends StatelessWidget {
   const Body({
     Key? key,
     required this.personName,
     required this.personPhone,
+    this.person,
+    required this.personBloc
   }) : super(key: key);
 
   final TextEditingController personName;
   final TextEditingController personPhone;
+  final PersonModel? person;
+  final PersonBloc personBloc;
+   
 
   @override
   Widget build(BuildContext context) {
-    final personBloc = BlocProvider.of<PersonBloc>(context);
-
     return Container(
       padding: const EdgeInsets.only(
         top: 10,
@@ -30,9 +34,9 @@ class Body extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
-            'Registrar Persona',
-            style:  TextStyle(
+          Text(
+            person == null?'Registrar Persona':'Actualizar Datos',
+            style:  const TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.bold
             ),
@@ -59,11 +63,26 @@ class Body extends StatelessWidget {
               padding: const EdgeInsets.all(10)
             ),
             onPressed: (){
-              personBloc.add(AddPersonEvent(person: PersonModel(name: personName.text, celular: personPhone.text, idType: 0)));
+              if(person == null){
+                personBloc.add(AddPersonEvent(person: PersonModel(name: personName.text, celular: personPhone.text, idType: 0)));
+              }else{
+                personBloc.add(
+                  UpdatePersonEvent(
+                    person: person!,
+                    editPerson: PersonModel(
+                      idType: 0,
+                      celular: personPhone.text,
+                      name: personName.text
+                    )
+                  )
+                );
+              }
+              // personBloc.close(); //!Dice el error que no se puede cerrar
+              Navigator.pop(context);
             },
-            child: const Text(
-              'Registrar',
-               style: TextStyle(
+            child:  Text(
+              person == null? 'Registrar':'Actualizar',
+               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18
                ),
@@ -74,3 +93,4 @@ class Body extends StatelessWidget {
     );
   }
 }
+

@@ -26,5 +26,14 @@ class AddPersonEvent extends PersonEvent{
 
   @override
   List<Object?> get props => [];
+}
 
+class UpdatePersonEvent extends PersonEvent{
+  final PersonModel person;
+  final PersonModel editPerson;
+
+  const UpdatePersonEvent({required this.person, required this.editPerson});
+
+  @override
+  List<Object?> get props => [];
 }

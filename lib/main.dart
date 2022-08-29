@@ -1,7 +1,7 @@
 import 'package:clean_arquitecture_bloc_hive/features/person/Domain/services/person_service.dart';
 import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/bloc/person_bloc.dart';
-import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/person_screen.dart';
-import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/widgets/push_person.dart';
+import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/screens/person_screen.dart';
+import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/screens/person_register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -24,22 +24,46 @@ class MyApp extends StatelessWidget {
       providers: [
         RepositoryProvider(
           create: (context) => personService
-        )
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.teal,
         ),
-        routes: {
-          'person':( BuildContext context)=>BlocProvider.value(
-                                value: BlocProvider.of<PersonBloc>(context),
-                                child: const PushPerson(),
-                              )
-        },
-        home: const PersonScreen(),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => PersonBloc(RepositoryProvider.of<PersonService>(context))
+            ..add(const LoadPersonEvent())
+          )
+        ],
+        child: const MaterialTheme()
       ),
+    );
+  }
+}
+
+class MaterialTheme extends StatelessWidget {
+  const MaterialTheme({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        useMaterial3: true,
+        primarySwatch: Colors.teal,
+      ),
+      routes: const {
+        // '/person':( BuildContext context)=>BlocProvider.value(
+        //                       value: BlocProvider.of<PersonBloc>(context),
+        //                       child: const PersonRegisterScreen(),
+        //                     )
+        // '/person':( BuildContext context)=>BlocProvider(
+        //             create: (context)=>  BlocProvider.of<PersonBloc>(context),
+        //             child: const PersonRegisterScreen(),
+        //           )
+      },
+      home: const PersonScreen(),
     );
   }
 }
