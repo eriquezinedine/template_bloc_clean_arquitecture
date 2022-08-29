@@ -1,6 +1,7 @@
 import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/bloc/person_bloc.dart';
 import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/screens/person_register_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../Domain/model/person_model.dart';
@@ -9,11 +10,9 @@ class SlidableWidget extends StatelessWidget {
   const SlidableWidget({
     Key? key,
     required this.person,
-    required this.personBloc
   }) : super(key: key);
 
   final PersonModel person;
-  final PersonBloc personBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class SlidableWidget extends StatelessWidget {
             // }),
             children:  [
               SlidableAction(
-                onPressed: (va)=>personBloc.add(DeletePersonEvent(person: person)), //!AQUI
+                onPressed: (va)=>BlocProvider.of<PersonBloc>(context).add(DeletePersonEvent(person: person)), //!AQUI
                 backgroundColor: Colors.redAccent,
                 foregroundColor: Colors.white,
                 icon: Icons.delete,
@@ -41,7 +40,6 @@ class SlidableWidget extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context)=> PersonRegisterScreen(
                       person: person,
-                      personBloc: personBloc //!AQUI: LO PASO PARA ejecutar el evento de actualizar.
                       )
                    )
                 );

@@ -12,7 +12,6 @@ class PersonScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PersonBloc personBloc = BlocProvider.of<PersonBloc>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -40,7 +39,7 @@ class PersonScreen extends StatelessWidget {
                         onPressed: (){
                           // Navigator.of(context).pushNamed('/person');
                           Navigator.push(context, 
-                            MaterialPageRoute(builder: (context)=> PersonRegisterScreen(personBloc: personBloc ))
+                            MaterialPageRoute(builder: (context)=> const PersonRegisterScreen())
                           );
                         },
                       ),
@@ -77,7 +76,7 @@ class PersonScreen extends StatelessWidget {
                           shrinkWrap: true,
                           children: [
                             ...state.persons
-                            .map((e) => SlidableWidget(person: e,personBloc: personBloc,)).toList()
+                            .map((e) => SlidableWidget(person: e,)).toList()
                           ],
                         );
                       }

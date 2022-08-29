@@ -13,14 +13,11 @@ class Body extends StatelessWidget {
     required this.personName,
     required this.personPhone,
     this.person,
-    required this.personBloc
   }) : super(key: key);
 
   final TextEditingController personName;
   final TextEditingController personPhone;
   final PersonModel? person;
-  final PersonBloc personBloc;
-   
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +61,9 @@ class Body extends StatelessWidget {
             ),
             onPressed: (){
               if(person == null){
-                personBloc.add(AddPersonEvent(person: PersonModel(name: personName.text, celular: personPhone.text, idType: 0)));
+                BlocProvider.of<PersonBloc>(context).add(AddPersonEvent(person: PersonModel(name: personName.text, celular: personPhone.text, idType: 0)));
               }else{
-                personBloc.add(
+                BlocProvider.of<PersonBloc>(context).add(
                   UpdatePersonEvent(
                     person: person!,
                     editPerson: PersonModel(

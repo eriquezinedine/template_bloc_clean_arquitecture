@@ -5,9 +5,8 @@ import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/widget
 import 'package:flutter/material.dart';
 
 class PersonRegisterScreen extends StatelessWidget {
-  const PersonRegisterScreen({Key? key, this.person, required this.personBloc}) : super(key: key);
+  const PersonRegisterScreen({Key? key, this.person}) : super(key: key);
   final PersonModel? person;
-  final PersonBloc personBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class PersonRegisterScreen extends StatelessWidget {
     );
     return Scaffold(
       appBar: appBarWidget(context),
-      body: Body(personName: personName, personPhone: personPhone, person: person, personBloc: personBloc),
+      body: Body(personName: personName, personPhone: personPhone, person: person),
     );
   }
 }
