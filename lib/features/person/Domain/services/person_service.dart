@@ -31,8 +31,6 @@ class PersonService{
     personToUpdate.name = editPerson.name;
     personToUpdate.celular = editPerson.celular;
     personToUpdate.idType = editPerson.idType;
-    // print();
-    print(personToUpdate == editPerson);
     await personToUpdate.save();
   }
 }

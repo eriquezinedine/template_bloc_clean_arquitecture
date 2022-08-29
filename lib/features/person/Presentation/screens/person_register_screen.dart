@@ -1,5 +1,4 @@
 import 'package:clean_arquitecture_bloc_hive/features/person/Domain/model/person_model.dart';
-import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/bloc/person_bloc.dart';
 import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/widgets/appBarWidget.dart';
 import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/widgets/body.dart';
 import 'package:flutter/material.dart';

@@ -16,6 +16,7 @@ class SlidableWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final personBloc =BlocProvider.of<PersonBloc>(context);
     return Slidable(
           key: const ValueKey(0),
           startActionPane: ActionPane(
@@ -25,7 +26,7 @@ class SlidableWidget extends StatelessWidget {
             // }),
             children:  [
               SlidableAction(
-                onPressed: (va)=>BlocProvider.of<PersonBloc>(context).add(DeletePersonEvent(person: person)), //!AQUI
+                onPressed: (va)=>personBloc.add(DeletePersonEvent(person: person)), //!AQUI
                 backgroundColor: Colors.redAccent,
                 foregroundColor: Colors.white,
                 icon: Icons.delete,
@@ -34,7 +35,7 @@ class SlidableWidget extends StatelessWidget {
             ],
           ),
           child: ListTile(
-              trailing: const Icon(Icons.delete, color: Colors.redAccent,),
+              trailing: const Icon(Icons.arrow_forward_ios_sharp,color: Color.fromARGB(184, 96, 125, 139),),
               onTap: (){
                 Navigator.push(context, 
                   MaterialPageRoute(
@@ -46,7 +47,7 @@ class SlidableWidget extends StatelessWidget {
               },
               leading: CircleAvatar(
                 radius: 20,
-                child: Text(person.name!.substring(0,2)),
+                child: Text(person.name!.substring(0,1)),
               ),
               title: Text(person.name!),
               subtitle: Text(person.celular!),

@@ -53,7 +53,7 @@ class MaterialTheme extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: Colors.teal,
       ),
-      routes: const {
+      // routes: const {
         // '/person':( BuildContext context)=>BlocProvider.value(
         //                       value: BlocProvider.of<PersonBloc>(context),
         //                       child: const PersonRegisterScreen(),
@@ -62,7 +62,7 @@ class MaterialTheme extends StatelessWidget {
         //             create: (context)=>  BlocProvider.of<PersonBloc>(context),
         //             child: const PersonRegisterScreen(),
         //           )
-      },
+      // },
       home: const PersonScreen(),
     );
   }

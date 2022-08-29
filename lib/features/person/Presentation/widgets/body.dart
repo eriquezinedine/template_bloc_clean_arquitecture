@@ -21,6 +21,7 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final personBloc =BlocProvider.of<PersonBloc>(context);
     return Container(
       padding: const EdgeInsets.only(
         top: 10,
@@ -61,9 +62,9 @@ class Body extends StatelessWidget {
             ),
             onPressed: (){
               if(person == null){
-                BlocProvider.of<PersonBloc>(context).add(AddPersonEvent(person: PersonModel(name: personName.text, celular: personPhone.text, idType: 0)));
+                personBloc.add(AddPersonEvent(person: PersonModel(name: personName.text, celular: personPhone.text, idType: 0)));
               }else{
-                BlocProvider.of<PersonBloc>(context).add(
+                personBloc.add(
                   UpdatePersonEvent(
                     person: person!,
                     editPerson: PersonModel(

@@ -39,9 +39,14 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
 
     on<UpdatePersonEvent>((event, emit)  async{
       // if(isClosed) return;
+      await _personService.udatePerson(person: event.person, editPerson: event.editPerson);
       final updatePerson = _personService.getPersons().map((element) => element.name == event.person.name? event.editPerson: element).toList(); //* Si funciono
-      // await _personService.udatePerson(person: event.person, editPerson: event.editPerson); //! No funciono-- detalles del porque dentro de la clase
       emit(PersonLoadedState(updatePerson));
+      /* 
+        Se necesita el primer metodo para cambiar internamente los valores del elemento
+        Y
+        Luego en la vista lo modifico con el map y cambiando el estado 
+       */
     });
 
   }
