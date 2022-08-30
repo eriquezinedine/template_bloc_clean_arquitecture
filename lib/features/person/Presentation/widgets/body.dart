@@ -21,7 +21,15 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int selectItem = 0;
+
     final personBloc =BlocProvider.of<PersonBloc>(context);
+
+    void changeElement({required int value}){
+      selectItem = value;
+      print('valor: $selectItem ');
+    }
+
     return Container(
       padding: const EdgeInsets.only(
         top: 10,
@@ -48,7 +56,11 @@ class Body extends StatelessWidget {
             label: 'Nombre',
             placeholder: 'Ingresar Nombre',
           ),
-          const DropdownWidget(),
+          DropdownWidget(
+            changeSelect: changeElement,
+            element: PersonModel.listSelect,
+            defaulValue: person ==null? selectItem: person!.idType,
+          ),
           InputWidget(
             controller: personPhone,
             icon: Icons.phone_android_outlined,
@@ -62,13 +74,13 @@ class Body extends StatelessWidget {
             ),
             onPressed: (){
               if(person == null){
-                personBloc.add(AddPersonEvent(person: PersonModel(name: personName.text, celular: personPhone.text, idType: 0)));
+                personBloc.add(AddPersonEvent(person: PersonModel(name: personName.text, celular: personPhone.text, idType: selectItem)));
               }else{
                 personBloc.add(
                   UpdatePersonEvent(
                     person: person!,
                     editPerson: PersonModel(
-                      idType: 0,
+                      idType: selectItem,
                       celular: personPhone.text,
                       name: personName.text
                     )

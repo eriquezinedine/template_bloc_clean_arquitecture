@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 part 'person_model.g.dart';
@@ -21,4 +22,10 @@ class PersonModel extends HiveObject {
   
   PersonModel({this.name, this.celular, this.idType});
   // Hive fields go here
+  static List<DropdownMenuItem<int>> listSelect = const [
+    DropdownMenuItem(value: 0,child:  Text('Cliente'),),
+    DropdownMenuItem(value: 1,child:  Text('Proveedor'),),
+    DropdownMenuItem(value: 2 ,child:  Text('Vendedor'),),
+  ];
+
 }

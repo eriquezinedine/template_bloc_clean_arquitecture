@@ -3,14 +3,29 @@ import 'package:flutter/material.dart';
 
 class DropdownWidget extends StatefulWidget {
 
-  const DropdownWidget({Key? key}) : super(key: key);
+  const DropdownWidget({Key? key, required this.changeSelect, required this.element, this.defaulValue}) : super(key: key);
+  final Function({required int value}) changeSelect;
+  final List<DropdownMenuItem<int>> element;
+  final int? defaulValue;
 
   @override
   State<DropdownWidget> createState() => _DropdownWidgetState();
 }
 
+
 class _DropdownWidgetState extends State<DropdownWidget> {
-  TypePerson dropdownValue = TypePerson.proveedor;
+  int dropdownValue = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    if(widget.defaulValue != null){
+      setState(() {
+        dropdownValue = widget.defaulValue!;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,16 +43,13 @@ class _DropdownWidgetState extends State<DropdownWidget> {
            const SizedBox(width: 10,),
           DropdownButton(
             value: dropdownValue,
-            items: const[
-              DropdownMenuItem(value: TypePerson.cliente,child:  Text('Cliente'),),
-              DropdownMenuItem(value: TypePerson.proveedor,child:  Text('Proveedor'),),
-              DropdownMenuItem(value: TypePerson.vendedor ,child:  Text('Vendedor'),),
-            ],
-            onChanged: (TypePerson? value){
+            items: widget.element,
+            onChanged: (int? value){
               setState(() {
-                dropdownValue = value?? TypePerson.cliente;
+                dropdownValue = value?? 0;
                 print('hola');
                 print(dropdownValue);
+                widget.changeSelect(value: dropdownValue);
               });
             },
           )

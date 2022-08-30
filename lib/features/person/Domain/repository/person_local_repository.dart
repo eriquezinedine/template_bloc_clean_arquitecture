@@ -1,7 +1,7 @@
 import 'package:clean_arquitecture_bloc_hive/features/person/Domain/model/person_model.dart';
 import 'package:hive/hive.dart';
 
-class PersonService{
+class PersonRepository{
   late Box<PersonModel> _person;
 
   Future<void> init() async{
