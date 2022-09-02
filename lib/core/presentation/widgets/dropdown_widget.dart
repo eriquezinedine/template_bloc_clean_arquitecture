@@ -1,12 +1,12 @@
-import 'package:clean_arquitecture_bloc_hive/features/person/Domain/model/person_model.dart';
+import 'package:clean_arquitecture_bloc_hive/features/person/Domain/model/type_person.dart';
 import 'package:flutter/material.dart';
 
 class DropdownWidget extends StatefulWidget {
 
   const DropdownWidget({Key? key, required this.changeSelect, required this.element, this.defaulValue}) : super(key: key);
-  final Function({required int value}) changeSelect;
-  final List<DropdownMenuItem<int>> element;
-  final int? defaulValue;
+  final Function({required TypePerson value}) changeSelect;
+  final List<DropdownMenuItem<TypePerson>> element;
+  final TypePerson? defaulValue;
 
   @override
   State<DropdownWidget> createState() => _DropdownWidgetState();
@@ -14,7 +14,7 @@ class DropdownWidget extends StatefulWidget {
 
 
 class _DropdownWidgetState extends State<DropdownWidget> {
-  int dropdownValue = 0;
+  TypePerson dropdownValue = TypePerson.cliente;
 
   @override
   void initState() {
@@ -44,11 +44,9 @@ class _DropdownWidgetState extends State<DropdownWidget> {
           DropdownButton(
             value: dropdownValue,
             items: widget.element,
-            onChanged: (int? value){
+            onChanged: (TypePerson? value){
               setState(() {
-                dropdownValue = value?? 0;
-                print('hola');
-                print(dropdownValue);
+                dropdownValue = value?? TypePerson.cliente;
                 widget.changeSelect(value: dropdownValue);
               });
             },

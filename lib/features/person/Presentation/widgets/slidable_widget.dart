@@ -1,5 +1,6 @@
 import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/bloc/person_bloc.dart';
 import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/screens/person_register_screen.dart';
+import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/widgets/item_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -17,6 +18,17 @@ class SlidableWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final personBloc =BlocProvider.of<PersonBloc>(context);
+    
+    void navigation(){
+      Navigator.push(context, 
+        MaterialPageRoute(
+          builder: (context)=> PersonRegisterScreen(
+            person: person,
+            )
+          )
+      );
+    }
+
     return Slidable(
           key: const ValueKey(0),
           startActionPane: ActionPane(
@@ -34,24 +46,8 @@ class SlidableWidget extends StatelessWidget {
               ),
             ],
           ),
-          child: ListTile(
-              trailing: const Icon(Icons.arrow_forward_ios_sharp,color: Color.fromARGB(184, 96, 125, 139),),
-              onTap: (){
-                Navigator.push(context, 
-                  MaterialPageRoute(
-                    builder: (context)=> PersonRegisterScreen(
-                      person: person,
-                      )
-                   )
-                );
-              },
-              leading: CircleAvatar(
-                radius: 20,
-                child: Text(person.name!.substring(0,1)),
-              ),
-              title: Text(person.name!),
-              subtitle: Text(person.celular!),
-            ),
+          child: ItemList(person: person, onTap: navigation,),
         );
   }
 }
+

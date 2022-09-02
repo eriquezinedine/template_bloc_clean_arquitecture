@@ -1,4 +1,5 @@
 import 'package:clean_arquitecture_bloc_hive/features/person/Domain/model/person_model.dart';
+import 'package:clean_arquitecture_bloc_hive/features/person/Domain/model/type_person.dart';
 import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/bloc/person_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,13 +22,12 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int selectItem = 0;
+    TypePerson selectItem = TypePerson.cliente;
 
     final personBloc =BlocProvider.of<PersonBloc>(context);
 
-    void changeElement({required int value}){
+    void changeElement({required TypePerson value}){
       selectItem = value;
-      print('valor: $selectItem ');
     }
 
     return Container(
@@ -51,6 +51,7 @@ class Body extends StatelessWidget {
             height: 20,
           ),
           InputWidget(
+            typeInput: TextInputType.text,
             controller: personName,
             icon: Icons.person,
             label: 'Nombre',
@@ -62,6 +63,7 @@ class Body extends StatelessWidget {
             defaulValue: person ==null? selectItem: person!.idType,
           ),
           InputWidget(
+            typeInput: TextInputType.phone,
             controller: personPhone,
             icon: Icons.phone_android_outlined,
             label: 'Celular',

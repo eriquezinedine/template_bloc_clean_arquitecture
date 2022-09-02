@@ -13,6 +13,7 @@ class PersonScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -29,7 +30,7 @@ class PersonScreen extends StatelessWidget {
                       'Personas',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 24
+                        fontSize: 24,
                       ),
                     ),
                     SizedBox(
