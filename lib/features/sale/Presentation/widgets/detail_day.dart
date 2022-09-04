@@ -2,8 +2,10 @@ import 'package:clean_arquitecture_bloc_hive/core/styles/theme.dart';
 import 'package:flutter/material.dart';
 
 class DetailDay extends StatelessWidget {
-  const DetailDay({Key? key, required this.total}) : super(key: key);
+  const DetailDay({Key? key, required this.total, required this.sale, required this.spent}) : super(key: key);
   final double total;
+  final double sale;
+  final double spent;
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +72,8 @@ class DetailDay extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.end,
-                          children: const [
-                            Text(
+                          children:  [
+                            const Text(
                               'Ventas Totales',
                                 style: TextStyle(
                                 color: ThemeColor.textSecundary,
@@ -81,8 +83,8 @@ class DetailDay extends StatelessWidget {
 
                             ),
                             Text(
-                              'S/ 193',
-                              style: TextStyle(
+                              'S/ $sale',
+                              style: const TextStyle(
                               color: Colors.green,
                               fontSize: 18,
                               fontWeight: FontWeight.bold
@@ -104,8 +106,8 @@ class DetailDay extends StatelessWidget {
                         const SizedBox(width: 10,),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
+                          children:  [
+                            const Text(
                               'Gastos Totales',
                                 style: TextStyle(
                                 fontSize: 16,
@@ -114,8 +116,8 @@ class DetailDay extends StatelessWidget {
 
                             ),
                             Text(
-                              'S/ 170',
-                              style: TextStyle(
+                              'S/ $spent'.replaceAll('-', ""),
+                              style: const TextStyle(
                               color: Colors.redAccent,
                               fontSize: 18,
                               fontWeight: FontWeight.bold

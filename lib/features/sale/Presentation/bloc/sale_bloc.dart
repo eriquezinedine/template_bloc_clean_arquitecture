@@ -20,14 +20,15 @@ class SaleBloc extends Bloc<SaleEvent, SaleState> {
   SaleBloc(this._saleRepository) : super(SaleInitial()) {
     on<SaleEvent>((event, emit) {
         final sales = _saleRepository.getSales();
-        emit(SaleLoadedState(sales));
+        print('Estado zinedine: ${state}');
+        emit(SaleLoadedState(sales: sales));
     });
 
     on<AddSaleEvent>((event, emit) {
       // print('hola');
       // _saleRepository.getSales().map((e) => e.detail.firstWhere((element) => false));
       final salesUpdtae = _saleRepository.addSale(event.date,event.detail);
-      emit(SaleLoadedState(salesUpdtae));
+      emit(SaleLoadedState(sales: salesUpdtae));
     });
 
   }

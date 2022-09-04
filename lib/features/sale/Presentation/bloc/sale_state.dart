@@ -12,18 +12,22 @@ class SaleInitial extends SaleState {
 
 class SaleLoadedState extends SaleState{
   final List<SaleModel> sales;
-  const SaleLoadedState(this.sales);
+  const SaleLoadedState({
+    required this.sales,
+  });
 
-  double get getTotal {
-      double total = 0;
+  List<double> get getTotal {
+    double total = 0;
+    double saleTotal = 0;
+    double spentTotal = 0;
     for (SaleModel sale in sales) {
-      for (DetailSaleModel detail in sale.detail) {
-         total = total + (detail.count * detail.price);
-      }
+        total += sale.getTotal;
+        saleTotal += sale.getSaleTotal;
+        spentTotal += sale.getSpentTotal;
     }
-
-    return total;
+    return [total,saleTotal,spentTotal];
   }
+
 
   @override
   List<Object?> get props => [sales];

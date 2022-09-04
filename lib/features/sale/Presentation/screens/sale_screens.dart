@@ -12,6 +12,7 @@ class SaleScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    
     const styleText = TextStyle(
       color: Colors.white,
       fontSize: 18,
@@ -59,7 +60,9 @@ class SaleScreen extends StatelessWidget {
                         shrinkWrap: false, //! Si pongo true pone el espacio predeterminado
                         children: [
                           DetailDay(
-                            total: state.getTotal,
+                            total: state.getTotal[0],
+                            sale: state.getTotal[1],
+                            spent: state.getTotal[2],
                           ),
                           ...state.sales
                           .map((e){

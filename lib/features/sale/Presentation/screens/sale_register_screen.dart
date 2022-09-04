@@ -2,7 +2,6 @@
 import 'package:clean_arquitecture_bloc_hive/core/presentation/widgets/input_widget.dart';
 import 'package:clean_arquitecture_bloc_hive/core/utils/create_id.dart';
 import 'package:clean_arquitecture_bloc_hive/features/person/Domain/model/person_model.dart';
-import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/bloc/person_bloc.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/detail_sale_model.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/type_sale.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/bloc/sale_bloc.dart';
@@ -13,7 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SaleRegisterScreen extends StatelessWidget {
-  const SaleRegisterScreen({Key? key}) : super(key: key);
+  const SaleRegisterScreen({Key? key, required this.isSale}) : super(key: key);
+  final bool isSale;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class SaleRegisterScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: const Text('Nueva Venta', style: TextStyle(fontWeight: FontWeight.bold,),),
+        title: Text( isSale? 'Nueva Venta': 'Nuevo gasto' , style: const TextStyle(fontWeight: FontWeight.bold,),),
       ),
       body: Container(
         width: double.infinity,
@@ -131,7 +131,7 @@ class SaleRegisterScreen extends StatelessWidget {
                       id: createId(DateTime.now()),
                       description: descriptionController.text,
                       person: personDefault,
-                      price: double.parse(priceController.text),
+                      price: isSale? double.parse(priceController.text): double.parse('-${priceController.text}'),
                       typeSale: selectType
                     )
                   )

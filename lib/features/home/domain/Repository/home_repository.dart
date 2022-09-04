@@ -15,5 +15,10 @@ class HomeRepository{
           MaterialPageRoute(builder: (context)=> const SaleScreen())
         );
     }),
+    Menu('Gastos', Icons.front_hand_outlined, (BuildContext context){
+      // Navigator.push(context, 
+      //     MaterialPageRoute(builder: (context)=> const DebtScreen())
+      //   );
+    }),
   ];
 }
