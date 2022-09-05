@@ -18,13 +18,14 @@ class SelectClient extends StatefulWidget {
 
 class _SelectClientState extends State<SelectClient> {
   String defaultLabel = 'Selecionar un Cliente';
-  late PersonModel selectPerson = PersonModel();
+  PersonModel selectPerson = PersonModel();
 
   @override
     void initState() {
       super.initState();
       if(widget.personModel != null){
-        defaultLabel = widget.personModel!.name!;
+          selectPerson = widget.personModel!;
+          defaultLabel = widget.personModel!.name!;
       }
     }
 

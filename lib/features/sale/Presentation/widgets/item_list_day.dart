@@ -49,7 +49,7 @@ class ItemListDay extends StatelessWidget {
             ),
               ...sale.detail.map((e){
               if(isOpen){
-                return ItemDetailSaleDay(style: style,detail: e,);
+                return ItemDetailSaleDay(style: style,detail: e, date: sale.date,);
               }
               return const SizedBox();
             }).toList(),

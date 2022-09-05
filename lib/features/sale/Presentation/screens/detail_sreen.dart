@@ -2,9 +2,14 @@ import 'package:clean_arquitecture_bloc_hive/core/presentation/widgets/label_row
 import 'package:clean_arquitecture_bloc_hive/core/presentation/widgets/page_widget.dart';
 import 'package:clean_arquitecture_bloc_hive/core/styles/theme.dart';
 import 'package:clean_arquitecture_bloc_hive/core/utils/appbar.dart';
+import 'package:clean_arquitecture_bloc_hive/features/person/Domain/model/type_person.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/detail_sale_model.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/type_sale.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/bloc/sale_bloc.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/screens/sale_register_screen.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/widgets/button_option.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -14,6 +19,7 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final saleBloc = BlocProvider.of<SaleBloc>(context);
     return PageWidget(
       appbar: appbar(title: 'Resumen'),
       body: Column(
@@ -41,7 +47,7 @@ class DetailScreen extends StatelessWidget {
                     ),
                     LabelRowWidget(
                       label: 'Contacto: ',
-                      content: detail.person.name!
+                      content: detail.person.name??'Que paso'
                     ),
                     LabelRowWidget(
                       label: 'Metodo de Pago: ',
@@ -66,22 +72,39 @@ class DetailScreen extends StatelessWidget {
                 title: 'Editar',
                 icon: Icons.edit,
                 onPressed: () {
+                  Navigator.push(context, 
+                    MaterialPageRoute(
+                      builder: (context)=> SaleRegisterScreen(
+                        isSale: detail.price > 0,
+                        detail: detail,
+                        date: date
+                      )
+                    )
+                  );
                 },
               ),
-              ButtonOption(
+              detail.typeSale == TypeSale.deuda
+              ? ButtonOption(
                 hero: 2,
                 color: Colors.green,
                 title: 'Aprobar',
                 icon: Icons.add_to_photos_sharp,
                 onPressed: () {
+                  saleBloc.add(ChangeTypeEvent(date: date, detail: detail));
+                  Navigator.pop(context);
+                  // Navigator.pop(context);
                 },
-              ),
+              )
+              : const SizedBox(),
               ButtonOption(
                 hero: 3,
                 color: ThemeColor.redPrimary,
                 title: 'Eliminar',
                 icon: Icons.delete,
                 onPressed: () {
+                  saleBloc.add(DeleteDatailEvent(date: date, detail: detail));
+                  Navigator.pop(context);
+                  // Navigator.pop(context);
                 },
               ),
             ],

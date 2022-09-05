@@ -20,3 +20,32 @@ class AddSaleEvent extends SaleEvent{
   @override
   List<Object?> get props => [];
 }
+
+
+class ChangeTypeEvent extends SaleEvent{
+  final DateTime date;
+  final DetailSaleModel detail;
+  const ChangeTypeEvent({required this.date, required this.detail});
+
+  @override
+  List<Object?> get props => [];
+}
+
+
+class DeleteDatailEvent extends SaleEvent{
+  final DateTime date;
+  final DetailSaleModel detail;
+  const DeleteDatailEvent({required this.date, required this.detail});
+
+  @override
+  List<Object?> get props => [];
+}
+
+class EditDetailEvent extends SaleEvent{
+  final DateTime date;
+  final DetailSaleModel detail;
+  const EditDetailEvent({required this.date, required this.detail});
+
+  @override
+  List<Object?> get props => [];
+}

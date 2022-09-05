@@ -12,16 +12,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SaleRegisterScreen extends StatelessWidget {
-  const SaleRegisterScreen({Key? key, required this.isSale}) : super(key: key);
+  const SaleRegisterScreen({Key? key, required this.isSale, this.detail, this.date}) : super(key: key);
   final bool isSale;
+  final DetailSaleModel? detail;
+  final DateTime? date;
 
   @override
   Widget build(BuildContext context) {
     final salesBloc = BlocProvider.of<SaleBloc>(context);
     
-    TextEditingController descriptionController = TextEditingController();
-    TextEditingController countController = TextEditingController();
-    TextEditingController priceController = TextEditingController();
+    TextEditingController descriptionController = TextEditingController(
+      text: detail != null? detail!.description : ''
+    );
+    TextEditingController countController = TextEditingController(
+      text: detail != null? detail!.count.toString() : ''
+    );
+    TextEditingController priceController = TextEditingController(
+      text: detail != null? detail!.price.toString().replaceAll('-', "") : ''
+    );
 
     TypeSale selectType = TypeSale.pagado;
 
@@ -31,7 +39,7 @@ class SaleRegisterScreen extends StatelessWidget {
 
     late PersonModel personDefault = PersonModel();
 
-    late DateTime dateDefault = DateTime.now();
+    late DateTime dateDefault =  DateTime.now();
 
 
     void changePersonModel(PersonModel person){
@@ -78,7 +86,7 @@ class SaleRegisterScreen extends StatelessWidget {
                  const SizedBox(width: 15,),
                  SelectSaleType(
                   onChageSelect: changeTypeSale,
-                  selecType: selectType,
+                  selecType: detail != null? detail!.typeSale: selectType,
                  ),
               ],
             ),
@@ -116,6 +124,7 @@ class SaleRegisterScreen extends StatelessWidget {
             ),
             SelectClient(
               changePerson: changePersonModel,
+              personModel: detail != null? detail!.person: null,
             ),
             const Spacer(),
             ElevatedButton(
@@ -123,19 +132,37 @@ class SaleRegisterScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(10)
               ),
               onPressed: (){
-                salesBloc.add(
-                  AddSaleEvent(
-                    date: dateDefault,
-                    detail: DetailSaleModel(
-                      count: double.parse(countController.text),
-                      id: createId(DateTime.now()),
-                      description: descriptionController.text,
-                      person: personDefault,
-                      price: isSale? double.parse(priceController.text): double.parse('-${priceController.text}'),
-                      typeSale: selectType
+                if(detail != null){
+                  print('Actualizar detalle');
+                  salesBloc.add(
+                    EditDetailEvent(
+                      date: dateDefault,
+                      detail: DetailSaleModel(
+                        count: double.parse(countController.text),
+                        id: detail!.id,
+                        description: descriptionController.text,
+                        person: personDefault,
+                        price: isSale? double.parse(priceController.text): double.parse('-${priceController.text}'),
+                        typeSale: selectType
+                      )
                     )
-                  )
-                );
+                  );
+                }else{
+
+                  salesBloc.add(
+                    AddSaleEvent(
+                      date: dateDefault,
+                      detail: DetailSaleModel(
+                        count: double.parse(countController.text),
+                        id: createId(DateTime.now()),
+                        description: descriptionController.text,
+                        person: personDefault,
+                        price: isSale? double.parse(priceController.text): double.parse('-${priceController.text}'),
+                        typeSale: selectType
+                      )
+                    )
+                  );
+                }
                 Navigator.pop(context);
               },
               child:  const Text(
