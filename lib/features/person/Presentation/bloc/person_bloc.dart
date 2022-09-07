@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:clean_arquitecture_bloc_hive/features/person/Domain/model/person_model.dart';
 import 'package:clean_arquitecture_bloc_hive/features/person/Domain/repository/person_local_repository.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/bloc/sale_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 part 'person_event.dart';
@@ -28,6 +29,7 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
     on<DeletePersonEvent>((event, emit) async{
       // if(isClosed) return;
       await _personRepository.removePerson(event.person);
+
       emit(PersonLoadedState(_personRepository.getPersons()));
     });
 
@@ -45,7 +47,7 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
       /*
         Se necesita el primer metodo para cambiar internamente los valores del elemento
         Y
-        Luego en la vista lo modifico con el map y cambiando el estado 
+        Luego en la vista lo modifico con el map y cambiando el estado
        */
     });
 

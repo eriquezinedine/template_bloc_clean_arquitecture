@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:clean_arquitecture_bloc_hive/core/utils/create_id.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/detail_sale_model.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/sale_model.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Repository/sale_local_repository.dart';
@@ -36,8 +37,17 @@ class SaleBloc extends Bloc<SaleEvent, SaleState> {
     });
 
     on<DeleteDatailEvent>((event, emit) async {
+      int id = createIdSale(event.date);
+      print('zinedine se elimina');
       await _saleRepository.deleteSale(event.date, event.detail);
-      emit(SaleLoadedState(sales: _saleRepository.getSales()));
+      final stateSles = state as SaleLoadedState;
+      final newList =  stateSles.sales.map((e) {
+        if(e.id == id){
+          e.detail.removeWhere((element) => element.id == event.detail.id);
+        }
+        return e;
+      });
+      emit(SaleLoadedState(sales: newList.toList()));
     });
 
     on<EditDetailEvent>((event, emit) async{
