@@ -2,9 +2,10 @@
 import 'package:clean_arquitecture_bloc_hive/core/presentation/widgets/input_widget.dart';
 import 'package:clean_arquitecture_bloc_hive/core/utils/create_id.dart';
 import 'package:clean_arquitecture_bloc_hive/features/person/Domain/model/person_model.dart';
-import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/detail_sale_model.dart';
-import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/type_sale.dart';
-import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/bloc/sale_bloc.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/day/day_model.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/sale/sale_model.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/type/type_sale.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/bloc/bloc_day/day_bloc.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/widgets/select_client.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/widgets/select_dary.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/widgets/select_sale_type.dart';
@@ -14,12 +15,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class SaleRegisterScreen extends StatelessWidget {
   const SaleRegisterScreen({Key? key, required this.isSale, this.detail, this.date}) : super(key: key);
   final bool isSale;
-  final DetailSaleModel? detail;
+  final SaleModel? detail;
   final DateTime? date;
 
   @override
   Widget build(BuildContext context) {
-    final salesBloc = BlocProvider.of<SaleBloc>(context);
+    final dayBloc = BlocProvider.of<DayBloc>(context);
     
     TextEditingController descriptionController = TextEditingController(
       text: detail != null? detail!.description : ''
@@ -134,34 +135,51 @@ class SaleRegisterScreen extends StatelessWidget {
               onPressed: (){
                 if(detail != null){
                   print('Actualizar detalle');
-                  salesBloc.add(
-                    EditDetailEvent(
-                      date: dateDefault,
-                      detail: DetailSaleModel(
-                        count: double.parse(countController.text),
-                        id: detail!.id,
-                        description: descriptionController.text,
-                        person: personDefault,
-                        price: isSale? double.parse(priceController.text): double.parse('-${priceController.text}'),
-                        typeSale: selectType
-                      )
-                    )
-                  );
+                  // salesBloc.add(
+                  //   EditDetailEvent(
+                  //     date: dateDefault,
+                  //     detail: DetailSaleModel(
+                  //       count: double.parse(countController.text),
+                  //       id: detail!.id,
+                  //       description: descriptionController.text,
+                  //       person: personDefault,
+                  //       price: isSale? double.parse(priceController.text): double.parse('-${priceController.text}'),
+                  //       typeSale: selectType
+                  //     )
+                  //   )
+                  // );
                 }else{
-
-                  salesBloc.add(
-                    AddSaleEvent(
-                      date: dateDefault,
-                      detail: DetailSaleModel(
-                        count: double.parse(countController.text),
-                        id: createId(DateTime.now()),
-                        description: descriptionController.text,
-                        person: personDefault,
-                        price: isSale? double.parse(priceController.text): double.parse('-${priceController.text}'),
-                        typeSale: selectType
-                      )
-                    )
-                  );
+                     int idDay = createIdDay(dateDefault);
+                     int idSale = createId(dateDefault);
+                     dayBloc.add(
+                      AddDayEvent(DayModel(
+                        date: dateDefault,
+                        idDay: idDay
+                      ))
+                      // AddDayEvent(SaleModel(
+                      //   idSale: idSale,
+                      //   idDay: idDay,
+                      //   description: descriptionController.text,
+                      //   count: double.parse(countController.text),
+                      //   price: isSale? double.parse(priceController.text): double.parse('-${priceController.text}'),
+                      //   person: personDefault,
+                      //   typeSale: selectType
+                      //   )
+                      // )
+                     );
+                  // salesBloc.add(
+                  //   AddSaleEvent(
+                  //     date: dateDefault,
+                  //     detail: DetailSaleModel(
+                  //       count: double.parse(countController.text),
+                  //       id: createId(DateTime.now()),
+                  //       description: descriptionController.text,
+                  //       person: personDefault,
+                  //       price: isSale? double.parse(priceController.text): double.parse('-${priceController.text}'),
+                  //       typeSale: selectType
+                  //     )
+                  //   )
+                  // );
                 }
                 Navigator.pop(context);
               },

@@ -1,8 +1,7 @@
 import 'package:clean_arquitecture_bloc_hive/core/utils/appbar.dart';
-import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/bloc/sale_bloc.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/bloc/bloc_day/day_bloc.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/method/list_button.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/widgets/detail_day.dart';
-import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/widgets/item_list_day.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,10 +41,10 @@ class SaleScreen extends StatelessWidget {
             topRight: Radius.circular(50)
           )
         ),
-        child: BlocBuilder<SaleBloc, SaleState>(
+        child: BlocBuilder<DayBloc, DayState>(
                   builder: (context, state) {
-                    if(state is SaleLoadedState){
-                      if(state.sales.isEmpty){
+                    if(state is DayLoadedState){
+                      if(state.days.isEmpty){
                         return Center(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,17 +58,17 @@ class SaleScreen extends StatelessWidget {
                       return ListView(
                         shrinkWrap: false, //! Si pongo true pone el espacio predeterminado
                         children: [
-                          DetailDay(
-                            total: state.getTotal[0],
-                            sale: state.getTotal[1],
-                            spent: state.getTotal[2],
+                          const DetailDay(
+                            total: 0,
+                            sale: 0,
+                            spent: 0,
                           ),
-                          ...state.sales
-                          .map((e){
-                            //! Cuantos elementos llegan
-                            // print('zinedine ${e.detail}');
-                            return ItemListDay(sale: e,);
-                          }).toList(),
+                          // ...state.sales
+                          // .map((e){
+                          //   //! Cuantos elementos llegan
+                          //   // print('zinedine ${e.detail}');
+                          //   return ItemListDay(day: e,);
+                          // }).toList(),
                           const SizedBox(height: 90,)
                         ],
                       );

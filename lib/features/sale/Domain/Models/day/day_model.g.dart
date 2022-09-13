@@ -1,38 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sale_model.dart';
+part of 'day_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SaleModelAdapter extends TypeAdapter<SaleModel> {
+class DayModelAdapter extends TypeAdapter<DayModel> {
   @override
   final int typeId = 4;
 
   @override
-  SaleModel read(BinaryReader reader) {
+  DayModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return SaleModel(
-      id: fields[0] as int,
+    return DayModel(
+      idDay: fields[0] as int,
       date: fields[1] as DateTime,
-      detail: (fields[2] as List).cast<DetailSaleModel>(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, SaleModel obj) {
+  void write(BinaryWriter writer, DayModel obj) {
     writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
-      ..write(obj.date)
       ..writeByte(2)
-      ..write(obj.detail);
+      ..writeByte(0)
+      ..write(obj.idDay)
+      ..writeByte(1)
+      ..write(obj.date);
   }
 
   @override
@@ -41,7 +38,7 @@ class SaleModelAdapter extends TypeAdapter<SaleModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SaleModelAdapter &&
+      other is DayModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

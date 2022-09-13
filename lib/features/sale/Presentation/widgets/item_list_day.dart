@@ -1,16 +1,17 @@
 import 'package:clean_arquitecture_bloc_hive/core/styles/theme.dart';
-import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/sale_model.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/day/day_model.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/sale/sale_model.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/widgets/item_detail_sale_day.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ItemListDay extends StatelessWidget {
-  const ItemListDay({super.key, required this.sale});
-  final SaleModel sale;
+  const ItemListDay({super.key, required this.day});
+  final DayModel day;
   @override
   Widget build(BuildContext context) {
     bool isOpen = false;
-    final format = DateFormat('MMMM d').format(sale.date);
+    final format = DateFormat('MMMM d').format(day.date);
     const TextStyle style = TextStyle(
       color: ThemeColor.textSecundary,
       fontWeight: FontWeight.w900,
@@ -42,17 +43,19 @@ class ItemListDay extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children:  [
                     Text(format,style: style,),
-                    Text('S/ ${sale.getTotal}',style: style,),
+                    const Text('S/ 145',style: style,),
+                    // Text('S/ ${sale.getTotal}',style: style,), //!W
                   ],
                 ),
               ),
             ),
-              ...sale.detail.map((e){
-              if(isOpen){
-                return ItemDetailSaleDay(style: style,detail: e, date: sale.date,);
-              }
-              return const SizedBox();
-            }).toList(),
+            //!Detalle de ventas
+            //   ...sale.detail.map((e){
+            //   if(isOpen){
+            //     return ItemDetailSaleDay(style: style,detail: e, date: sale.date,);
+            //   }
+            //   return const SizedBox();
+            // }).toList(),
           ],
         );
       }

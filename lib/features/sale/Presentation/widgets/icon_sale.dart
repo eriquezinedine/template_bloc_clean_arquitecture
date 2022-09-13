@@ -1,5 +1,5 @@
 import 'package:clean_arquitecture_bloc_hive/core/styles/theme.dart';
-import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/detail_sale_model.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/sale/sale_model.dart';
 import 'package:flutter/material.dart';
 
 class IconSale extends StatelessWidget {
@@ -8,7 +8,7 @@ class IconSale extends StatelessWidget {
     required this.detail,
   }) : super(key: key);
 
-  final DetailSaleModel detail;
+  final SaleModel detail;
 
   @override
   Widget build(BuildContext context) {

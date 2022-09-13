@@ -16,17 +16,17 @@ class SaleLoadedState extends SaleState{
     required this.sales,
   });
 
-  List<double> get getTotal {
-    double total = 0;
-    double saleTotal = 0;
-    double spentTotal = 0;
-    for (SaleModel sale in sales) {
-        total += sale.getTotal;
-        saleTotal += sale.getSaleTotal;
-        spentTotal += sale.getSpentTotal;
-    }
-    return [total,saleTotal,spentTotal];
-  }
+  // List<double> get getTotal {
+  //   double total = 0;
+  //   double saleTotal = 0;
+  //   double spentTotal = 0;
+  //   for (SaleModel sale in sales) {
+  //       total += sale.getTotal;
+  //       saleTotal += sale.getSaleTotal;
+  //       spentTotal += sale.getSpentTotal;
+  //   }
+  //   return [total,saleTotal,spentTotal];
+  // }
 
 
   @override

@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:clean_arquitecture_bloc_hive/features/person/Domain/model/person_model.dart';
 import 'package:clean_arquitecture_bloc_hive/features/person/Domain/repository/person_local_repository.dart';
-import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/bloc/sale_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 part 'person_event.dart';

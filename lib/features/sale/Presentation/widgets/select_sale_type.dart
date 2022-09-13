@@ -1,5 +1,5 @@
 import 'package:clean_arquitecture_bloc_hive/core/styles/theme.dart';
-import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/type_sale.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/type/type_sale.dart';
 import 'package:flutter/material.dart';
 
 class SelectSaleType extends StatefulWidget {

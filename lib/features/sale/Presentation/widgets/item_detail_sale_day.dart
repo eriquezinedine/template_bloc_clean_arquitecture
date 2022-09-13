@@ -1,7 +1,6 @@
 import 'package:clean_arquitecture_bloc_hive/core/styles/theme.dart';
-import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/detail_sale_model.dart';
-import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/type_sale.dart';
-import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/screens/debt_screen.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/sale/sale_model.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/type/type_sale.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/screens/detail_sreen.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/widgets/debt.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/widgets/icon_debt.dart';
@@ -15,7 +14,7 @@ class ItemDetailSaleDay extends StatelessWidget {
     required this.detail,
     required this.date
   }) : super(key: key);
-  final DetailSaleModel detail;
+  final SaleModel detail;
   final DateTime date;
   final TextStyle style;
 
@@ -32,14 +31,14 @@ class ItemDetailSaleDay extends StatelessWidget {
       child: ListTile(
        onTap: ()=> {
         //*Podre ver el detalle
-          Navigator.push(context, 
-            MaterialPageRoute(
-              builder: (context)=> DetailScreen(
-                date: date,
-                detail: detail,
-              )
-            )
-          )
+          // Navigator.push(context, 
+          //   MaterialPageRoute(
+          //     builder: (context)=> DetailScreen(
+          //       date: date,
+          //       detail: detail,
+          //     )
+          //   )
+          // )
         //  if(TypeSale.deuda == detail.typeSale){
         //     //!SE LISTA LA DEUDA DE UNA PERSONA
         //     // Navigator.push(context, 

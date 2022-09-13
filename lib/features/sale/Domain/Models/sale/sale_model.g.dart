@@ -1,44 +1,47 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'detail_sale_model.dart';
+part of 'sale_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class DetailSaleModelAdapter extends TypeAdapter<DetailSaleModel> {
+class SaleModelAdapter extends TypeAdapter<SaleModel> {
   @override
   final int typeId = 2;
 
   @override
-  DetailSaleModel read(BinaryReader reader) {
+  SaleModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return DetailSaleModel(
-      id: fields[0] as int,
-      description: fields[1] as String,
-      count: fields[2] as double,
-      price: fields[3] as double,
-      person: fields[4] as PersonModel,
+    return SaleModel(
+      idSale: fields[0] as int,
+      idDay: fields[1] as int,
+      description: fields[2] as String,
+      count: fields[3] as double,
+      price: fields[4] as double,
+      person: fields[5] as PersonModel,
       typeSale: fields[6] as TypeSale,
     );
   }
 
   @override
-  void write(BinaryWriter writer, DetailSaleModel obj) {
+  void write(BinaryWriter writer, SaleModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
-      ..write(obj.id)
+      ..write(obj.idSale)
       ..writeByte(1)
-      ..write(obj.description)
+      ..write(obj.idDay)
       ..writeByte(2)
-      ..write(obj.count)
+      ..write(obj.description)
       ..writeByte(3)
-      ..write(obj.price)
+      ..write(obj.count)
       ..writeByte(4)
+      ..write(obj.price)
+      ..writeByte(5)
       ..write(obj.person)
       ..writeByte(6)
       ..write(obj.typeSale);
@@ -50,7 +53,7 @@ class DetailSaleModelAdapter extends TypeAdapter<DetailSaleModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DetailSaleModelAdapter &&
+      other is SaleModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

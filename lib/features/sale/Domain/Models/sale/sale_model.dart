@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 
 import '../../../../person/Domain/model/person_model.dart';
-import '../type_sale.dart';
+import '../type/type_sale.dart';
 
 part 'sale_model.g.dart';
 
