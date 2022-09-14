@@ -7,17 +7,19 @@ class SelectClient extends StatefulWidget {
   const SelectClient({
     Key? key,
     this.personModel,
-    required this.changePerson
+    required this.changePerson,
+    required this.isSale
   }) : super(key: key);
   final PersonModel? personModel;
   final Function(PersonModel person) changePerson;
+  final bool isSale;
 
   @override
   State<SelectClient> createState() => _SelectClientState();
 }
 
 class _SelectClientState extends State<SelectClient> {
-  String defaultLabel = 'Selecionar un Cliente';
+  String defaultLabel = 'Selecionar un Cliente o Trabajador';
   PersonModel selectPerson = PersonModel();
 
   @override
@@ -26,6 +28,11 @@ class _SelectClientState extends State<SelectClient> {
       if(widget.personModel != null){
           selectPerson = widget.personModel!;
           defaultLabel = widget.personModel!.name!;
+          widget.changePerson(widget.personModel!);
+      }
+
+      if (!widget.isSale) {
+        defaultLabel = 'Selecionar un Proveedor';
       }
     }
 
@@ -42,7 +49,7 @@ class _SelectClientState extends State<SelectClient> {
       onTap: () => {
 
         Navigator.push(context, 
-          MaterialPageRoute(builder: (context)=>  PersonSelectScreen(selectPerson: selectClient,))
+          MaterialPageRoute(builder: (context)=>  PersonSelectScreen(selectPerson: selectClient,isSale:widget.isSale))
         )
       },
       child: Container(

@@ -31,14 +31,14 @@ class ItemDetailSaleDay extends StatelessWidget {
       child: ListTile(
        onTap: ()=> {
         //*Podre ver el detalle
-          // Navigator.push(context, 
-          //   MaterialPageRoute(
-          //     builder: (context)=> DetailScreen(
-          //       date: date,
-          //       detail: detail,
-          //     )
-          //   )
-          // )
+          Navigator.push(context, 
+            MaterialPageRoute(
+              builder: (context)=> DetailScreen(
+                date: date,
+                detail: detail,
+              )
+            )
+          )
         //  if(TypeSale.deuda == detail.typeSale){
         //     //!SE LISTA LA DEUDA DE UNA PERSONA
         //     // Navigator.push(context, 

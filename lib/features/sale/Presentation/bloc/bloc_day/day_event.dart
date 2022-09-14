@@ -20,3 +20,12 @@ class AddDayEvent extends DayEvent{
   List<Object?> get props => [day];
 
 }
+
+class DeleteDayEvent extends DayEvent{
+  final DayModel day;
+  const DeleteDayEvent(this.day);
+
+  @override
+  List<Object?> get props => [day];
+
+}

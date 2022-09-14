@@ -24,5 +24,14 @@ class DayBloc extends Bloc<DayEvent, DayState> {
           )
         );
     });
+
+    on<DeleteDayEvent>((event, emit) {
+      final listDay = _dayRepository.deleteSale(event.day);
+      emit(
+        DayLoadedState(
+          days: listDay
+          )
+        );
+    });
   }
 }

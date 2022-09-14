@@ -21,24 +21,34 @@ class AddSaleEvent extends SaleEvent{
 }
 
 
-// class ChangeTypeEvent extends SaleEvent{
-//   final DateTime date;
-//   final DetailSaleModel detail;
-//   const ChangeTypeEvent({required this.date, required this.detail});
+class ChangeTypeEvent extends SaleEvent{
+  final DateTime date;
+  final SaleModel detail;
+  const ChangeTypeEvent({required this.date, required this.detail});
 
-//   @override
-//   List<Object?> get props => [];
-// }
+  @override
+  List<Object?> get props => [];
+}
 
 
-// class DeleteDatailEvent extends SaleEvent{
-//   final DateTime date;
-//   final DetailSaleModel detail;
-//   const DeleteDatailEvent({required this.date, required this.detail});
+class DeleteSaleEvent extends SaleEvent{
+  final DateTime date;
+  final SaleModel sale;
+  const DeleteSaleEvent({required this.date, required this.sale});
 
-//   @override
-//   List<Object?> get props => [];
-// }
+  @override
+  List<Object?> get props => [];
+}
+
+
+class EditSaleEvent extends SaleEvent{
+  final DateTime date;
+  final SaleModel sale;
+  const EditSaleEvent({required this.date, required this.sale});
+
+  @override
+  List<Object?> get props => [];
+}
 
 // class EditDetailEvent extends SaleEvent{
 //   final DateTime date;

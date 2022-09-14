@@ -3,7 +3,7 @@ import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/screen
 import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/widgets/slidable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
+// import 'package:lottie/lottie.dart';
 
 
 class PersonScreen extends StatelessWidget {
@@ -67,7 +67,7 @@ class PersonScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children:  [
-                                Lottie.network('https://assets4.lottiefiles.com/private_files/lf30_e3pteeho.json'),
+                                // Lottie.network('https://assets4.lottiefiles.com/private_files/lf30_e3pteeho.json'),
                                 const Text('Vacio papu'),
                               ],
                             ),

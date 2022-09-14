@@ -5,17 +5,18 @@ import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/bloc/p
 import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/widgets/item_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
+// import 'package:lottie/lottie.dart';
 
 class PersonSelectScreen extends StatelessWidget {
-  const PersonSelectScreen({Key? key, required this.selectPerson}) : super(key: key);
+  const PersonSelectScreen({Key? key, required this.selectPerson, required this.isSale}) : super(key: key);
   final Function(PersonModel person) selectPerson;
+  final bool isSale;
 
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: Colors.teal,
-      appBar: appbar(title: 'Selecionar Cliente'),
+      appBar: appbar(title: isSale? 'Selecionar cliente o Trabajador': 'Selecionar Proveedor'),
       body: Container(
             margin: const EdgeInsets.only(
               top: 8
@@ -42,7 +43,7 @@ class PersonSelectScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children:  [
-                              Lottie.network('https://assets4.lottiefiles.com/private_files/lf30_e3pteeho.json'),
+                              // Lottie.network('https://assets4.lottiefiles.com/private_files/lf30_e3pteeho.json'),
                               const Text('Vacio papu'),
                             ],
                           ),
@@ -52,15 +53,31 @@ class PersonSelectScreen extends StatelessWidget {
                         shrinkWrap: false, //! Si pongo true pone el espacio predeterminado
                         children: [
                           ...state.persons
-                          .map((e)=>  e.idType == TypePerson.cliente
-                                      ?ItemList(
-                                        person: e,
-                                        onTap: (){ 
-                                          selectPerson(e);
-                                          Navigator.pop(context);
-                                        }
-                                      )
-                                      : const SizedBox()
+                          .map((e){
+                            if (isSale) {
+                              if (e.idType != TypePerson.proveedor) {
+                                return ItemList(
+                                      person: e,
+                                      onTap: (){ 
+                                        selectPerson(e);
+                                        Navigator.pop(context);
+                                      }
+                                );
+                            }
+                            }else{
+                              if (e.idType == TypePerson.proveedor) {
+                                return ItemList(
+                                      person: e,
+                                      onTap: (){ 
+                                        selectPerson(e);
+                                        Navigator.pop(context);
+                                      }
+                                );
+                            }
+
+                            }
+                            return const SizedBox();
+                          }
                                 ).toList()
                         ],
                       );

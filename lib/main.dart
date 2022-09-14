@@ -4,6 +4,7 @@ import 'package:clean_arquitecture_bloc_hive/features/person/Presentation/bloc/p
 import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Repository/day_local_repository.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Repository/sale_local_repository.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/bloc/bloc_day/day_bloc.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/bloc/bloc_sale/sale_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -13,15 +14,18 @@ void main() async{
   await Hive.initFlutter();
   final personRepository = PersonRepository();
   final daysRepository = DayRepository();
+  final saleRepository = SaleRepository();
   await personRepository.init();
   await daysRepository.init();
-  runApp( MyApp( personRepository: personRepository, daysRepository: daysRepository, ));
+  await saleRepository.init();
+  runApp( MyApp( personRepository: personRepository, daysRepository: daysRepository, saleRepository: saleRepository, ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key, required this.personRepository, required this.daysRepository}) : super(key: key);
+  const MyApp({Key? key, required this.personRepository, required this.daysRepository, required this.saleRepository}) : super(key: key);
   final PersonRepository personRepository;
   final DayRepository daysRepository;
+  final SaleRepository saleRepository;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -33,6 +37,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => daysRepository
         ),
+        RepositoryProvider(
+          create: (context) => saleRepository
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -43,6 +50,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => DayBloc(RepositoryProvider.of<DayRepository>(context))
             ..add(const LoadDayEvent())
+          ),
+          BlocProvider(
+            create: (context) => SaleBloc(RepositoryProvider.of<SaleRepository>(context))
+            ..add(const LoadSaleEvent())
           ),
         ],
         child: const MaterialTheme()

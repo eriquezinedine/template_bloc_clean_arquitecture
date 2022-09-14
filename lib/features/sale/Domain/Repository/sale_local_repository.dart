@@ -35,4 +35,81 @@ class SaleRepository{
     }
     return _sales.values.toList();
   }
+
+  List<SaleModel> deleteSale(SaleModel sale){
+    final SaleModel saleToSelect = _sales.values.firstWhere(
+      (element) => element.idSale == sale.idSale,
+      orElse: () => SaleModel(
+        idSale: -1,
+        idDay: -1,
+        description: 'description',
+        count: 0,
+        price: 0,
+        person: PersonModel(),
+        typeSale: TypeSale.deuda),
+      );
+    if( saleToSelect.idSale != -1 ){
+      saleToSelect.delete();
+    }
+    return _sales.values.toList();
+  }
+
+  List<SaleModel> changeTypeEvent(SaleModel sale) {
+    final SaleModel saleToSelect = _sales.values.firstWhere(
+      (element) => element.idSale == sale.idSale,
+      orElse: () => SaleModel(
+        idSale: -1,
+        idDay: -1,
+        description: 'description',
+        count: 0,
+        price: 0,
+        person: PersonModel(),
+        typeSale: TypeSale.deuda),
+      );
+    if( saleToSelect.idSale != -1 ){
+      final index = saleToSelect.key as int;
+      _sales.put(index, SaleModel(
+        idSale: saleToSelect.idSale,
+        idDay: saleToSelect.idDay,
+        description: saleToSelect.description,
+        count: saleToSelect.count,
+        price: saleToSelect.price,
+        person: saleToSelect.person,
+        typeSale: TypeSale.pagado
+        )
+      );
+    }
+    return _sales.values.toList();
+  }
+
+  List<SaleModel> editSale(SaleModel sale) {
+    final SaleModel saleToSelect = _sales.values.firstWhere(
+      (element) => element.idSale == sale.idSale,
+      orElse: () => SaleModel(
+        idSale: -1,
+        idDay: -1,
+        description: 'description',
+        count: 0,
+        price: 0,
+        person: PersonModel(),
+        typeSale: TypeSale.deuda),
+      );
+    if( saleToSelect.idSale != -1 ){
+      print('Se actualiza perra de mrd');
+      final index = saleToSelect.key as int;
+      _sales.put(index, SaleModel(
+        idSale: sale.idSale,
+        idDay: sale.idDay,
+        description: sale.description,
+        count: sale.count,
+        price: sale.price,
+        person: sale.person,
+        typeSale: sale.typeSale
+        )
+      );
+    }
+    return _sales.values.toList();
+  }
+
+
 }

@@ -16,17 +16,60 @@ class SaleLoadedState extends SaleState{
     required this.sales,
   });
 
-  // List<double> get getTotal {
-  //   double total = 0;
-  //   double saleTotal = 0;
-  //   double spentTotal = 0;
-  //   for (SaleModel sale in sales) {
-  //       total += sale.getTotal;
-  //       saleTotal += sale.getSaleTotal;
-  //       spentTotal += sale.getSpentTotal;
-  //   }
-  //   return [total,saleTotal,spentTotal];
-  // }
+  double getDayTotal( {required int idDay}) {
+    double total = 0;
+    for (SaleModel sale in sales) {
+      if(sale.idDay == idDay && sale.typeSale == TypeSale.pagado){
+          total += (sale.count * sale.price);
+      }
+    }
+    return total;
+    // return [total,saleTotal,spentTotal];
+  }
+
+  double get getTotal {
+    double total =0;
+    for(SaleModel sale in sales){
+      if(sale.typeSale == TypeSale.pagado){
+        total += sale.count * sale.price;
+      }
+    }
+    return total;
+  }
+
+  double get getsaleTotal {
+    double saleTotal =0;
+    for(SaleModel sale in sales){
+       double value = sale.count * sale.price;
+        if(value > 0 && sale.typeSale == TypeSale.pagado){
+          saleTotal += value;
+        }
+    }
+    return saleTotal;
+  }
+
+  double get getspentTotal {
+    double spentTotal =0;
+    for(SaleModel sale in sales){
+       double value = sale.count * sale.price;
+        if(value < 0 && sale.typeSale == TypeSale.pagado){
+          spentTotal += value;
+        }
+    }
+    return spentTotal;
+  }
+
+  bool searchPerson ( PersonModel person ){
+    bool isSpent = false;
+  for( SaleModel sale in sales){
+    if(sale.person.name == person.name && sale.typeSale == TypeSale.deuda){
+      isSpent = true;
+      break;
+    }
+  }
+    return isSpent;
+  }
+
 
 
   @override

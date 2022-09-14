@@ -28,5 +28,16 @@ class DayRepository{
     }
   }
 
+  List<DayModel> deleteSale(DayModel day){
+    final DayModel saleToSelect = _days.values.firstWhere(
+      (element) => element.idDay == day.idDay,
+      orElse: () => DayModel(idDay: -1, date: DateTime.now())
+      );
+    if( saleToSelect.idDay != -1 ){
+      saleToSelect.delete();
+    }
+    return _days.values.toList();
+  }
+
 
 }

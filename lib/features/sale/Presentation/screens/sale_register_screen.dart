@@ -6,6 +6,7 @@ import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/day/day
 import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/sale/sale_model.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/type/type_sale.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/bloc/bloc_day/day_bloc.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/bloc/bloc_sale/sale_bloc.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/widgets/select_client.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/widgets/select_dary.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/widgets/select_sale_type.dart';
@@ -21,6 +22,7 @@ class SaleRegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dayBloc = BlocProvider.of<DayBloc>(context);
+    final saleBloc = BlocProvider.of<SaleBloc>(context);
     
     TextEditingController descriptionController = TextEditingController(
       text: detail != null? detail!.description : ''
@@ -56,7 +58,12 @@ class SaleRegisterScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: Text( isSale? 'Nueva Venta': 'Nuevo gasto' , style: const TextStyle(fontWeight: FontWeight.bold,),),
+        title: Text(
+          isSale? 'Nueva Venta': 'Nuevo gasto' ,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Container(
         width: double.infinity,
@@ -126,6 +133,7 @@ class SaleRegisterScreen extends StatelessWidget {
             SelectClient(
               changePerson: changePersonModel,
               personModel: detail != null? detail!.person: null,
+              isSale: isSale,
             ),
             const Spacer(),
             ElevatedButton(
@@ -135,51 +143,43 @@ class SaleRegisterScreen extends StatelessWidget {
               onPressed: (){
                 if(detail != null){
                   print('Actualizar detalle');
-                  // salesBloc.add(
-                  //   EditDetailEvent(
-                  //     date: dateDefault,
-                  //     detail: DetailSaleModel(
-                  //       count: double.parse(countController.text),
-                  //       id: detail!.id,
-                  //       description: descriptionController.text,
-                  //       person: personDefault,
-                  //       price: isSale? double.parse(priceController.text): double.parse('-${priceController.text}'),
-                  //       typeSale: selectType
-                  //     )
-                  //   )
-                  // );
+                  saleBloc.add(
+                    EditSaleEvent(
+                      date: dateDefault,
+                      sale: SaleModel(
+                        idSale: detail!.idSale,
+                        idDay: detail!.idDay,
+                        description: descriptionController.text,
+                        count: double.parse(countController.text),
+                        price: isSale? double.parse(priceController.text): double.parse('-${priceController.text}'),
+                        person: personDefault,
+                        typeSale: selectType
+                        )
+                    )
+                  );
+                    Navigator.pop(context);
                 }else{
-                     int idDay = createIdDay(dateDefault);
-                     int idSale = createId(dateDefault);
+                    int idDay = createIdDay(dateDefault);
+                    int idSale = createId(dateDefault);
                      dayBloc.add(
                       AddDayEvent(DayModel(
                         date: dateDefault,
                         idDay: idDay
                       ))
-                      // AddDayEvent(SaleModel(
-                      //   idSale: idSale,
-                      //   idDay: idDay,
-                      //   description: descriptionController.text,
-                      //   count: double.parse(countController.text),
-                      //   price: isSale? double.parse(priceController.text): double.parse('-${priceController.text}'),
-                      //   person: personDefault,
-                      //   typeSale: selectType
-                      //   )
-                      // )
                      );
-                  // salesBloc.add(
-                  //   AddSaleEvent(
-                  //     date: dateDefault,
-                  //     detail: DetailSaleModel(
-                  //       count: double.parse(countController.text),
-                  //       id: createId(DateTime.now()),
-                  //       description: descriptionController.text,
-                  //       person: personDefault,
-                  //       price: isSale? double.parse(priceController.text): double.parse('-${priceController.text}'),
-                  //       typeSale: selectType
-                  //     )
-                  //   )
-                  // );
+                     saleBloc.add(
+                      AddSaleEvent(
+                        sale: SaleModel(
+                        idSale: idSale,
+                        idDay: idDay,
+                        description: descriptionController.text,
+                        count: double.parse(countController.text),
+                        price: isSale? double.parse(priceController.text): double.parse('-${priceController.text}'),
+                        person: personDefault,
+                        typeSale: selectType
+                        )
+                      )
+                     );
                 }
                 Navigator.pop(context);
               },
