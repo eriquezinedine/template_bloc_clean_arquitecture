@@ -47,16 +47,16 @@ class PersonScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                Row(
-                  children: const [
-                    ChoiceChip(label: Text('Trabajador'), selected: true),
-                    SizedBox(width: 5,),
-                    ChoiceChip(label: Text('Vendedor'), selected: false),
-                    SizedBox(width: 5,),
-                    ChoiceChip(label: Text('Proveedor'), selected: false),
-                    SizedBox(width: 5,),
-                  ],
-                ),
+                // Row(
+                //   children: const [
+                //     ChoiceChip(label: Text('Trabajador'), selected: true),
+                //     SizedBox(width: 5,),
+                //     ChoiceChip(label: Text('Vendedor'), selected: false),
+                //     SizedBox(width: 5,),
+                //     ChoiceChip(label: Text('Proveedor'), selected: false),
+                //     SizedBox(width: 5,),
+                //   ],
+                // ),
                 const SizedBox(height: 20,),
                 BlocBuilder<PersonBloc, PersonState>(
                     builder: (context, state) {

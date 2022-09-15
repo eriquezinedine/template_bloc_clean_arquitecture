@@ -14,7 +14,7 @@ class SpentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  PageWidget(
-      appbar: appbar(title: 'Lista de gasto'),
+      appbar: appbar(title: 'Personas en Gastos'),
       body: BlocBuilder<PersonBloc, PersonState>(
         builder: (context, statePerson) {
           if(statePerson is PersonLoadedState){
@@ -24,19 +24,15 @@ class SpentScreen extends StatelessWidget {
                   return ListView(
                     shrinkWrap: false,
                     children:   [
-                      const Text(
-                        'Lista de deudas',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
                       const SizedBox(height: 10,),
                       ...statePerson.persons
                       .map((e){
                         bool isSpent = stateSale.searchPerson(e);
                         if(isSpent){
                           return ItemList(person: e, onTap: (){
+                            Navigator.push(context, 
+                              MaterialPageRoute(builder: (context)=> DebtScreen(person: e))
+                            );
                             print('Selecionando persona');
                           });
                         }

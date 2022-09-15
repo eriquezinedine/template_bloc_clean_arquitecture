@@ -21,7 +21,7 @@ class SaleScreen extends StatelessWidget {
     return  Scaffold(
       floatingActionButton: Container(
         width: double.infinity,
-        color: Colors.red, //!problema
+        // color: Colors.red, //!problema
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: listButton(styleText,context),

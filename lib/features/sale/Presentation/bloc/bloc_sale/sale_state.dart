@@ -70,7 +70,10 @@ class SaleLoadedState extends SaleState{
     return isSpent;
   }
 
-
+  List<SaleModel> getRangeTime(DateTime dateInit, DateTime dateEnd){
+    
+    return sales;
+  }
 
   @override
   List<Object?> get props => [sales];

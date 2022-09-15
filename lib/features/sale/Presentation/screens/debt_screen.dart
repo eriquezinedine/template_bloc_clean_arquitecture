@@ -1,7 +1,9 @@
 
 import 'package:clean_arquitecture_bloc_hive/core/presentation/widgets/page_widget.dart';
 import 'package:clean_arquitecture_bloc_hive/core/utils/appbar.dart';
+import 'package:clean_arquitecture_bloc_hive/features/person/Domain/model/person_model.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/sale/sale_model.dart';
+import 'package:clean_arquitecture_bloc_hive/features/sale/Domain/Models/type/type_sale.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/bloc/bloc_sale/sale_bloc.dart';
 import 'package:clean_arquitecture_bloc_hive/features/sale/Presentation/screens/detail_sreen.dart';
 import 'package:flutter/material.dart';
@@ -10,36 +12,31 @@ import 'package:intl/intl.dart';
 
 class DebtScreen extends StatelessWidget {
    
-  const DebtScreen({Key? key, required this.detail}) : super(key: key);
-  final SaleModel detail;
+  const DebtScreen({Key? key, required this.person}) : super(key: key);
+  final PersonModel person;
   @override
   Widget build(BuildContext context) {
     return PageWidget(
-      appbar: appbar(title: detail.person.name),
+      appbar: appbar(title: person.name),
       body: BlocBuilder<SaleBloc, SaleState>(
         builder: (context, state) {
           if(state is SaleLoadedState){
             return ListView(
             shrinkWrap: false,
-            children:  const [
-               Text(
+            children:   [
+               const Text(
                 'Lista de deudas',
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold
                 ),
               ),
-               SizedBox(height: 10,),
-              // ...state.sales
-              // .map((p){
-              //   //! Cuantos elementos llegan
-              //   // print('zinedine ${e.detail}');
-              //   return Column(
-              //     children: [
-              //       ...p.detail.map((e) => detail.person.name == e.person.name? ItemDebt(detail: e, date:  p.date,): const SizedBox())
-              //     ],
-              //   );
-              // }).toList(),
+               const SizedBox(height: 10,),
+              ...state.sales
+              .map((p){
+                //! Cuantos elementos llegan
+                return person.name == p.person.name && p.typeSale == TypeSale.deuda? ItemDebt(detail: p, date:  DateTime.now(),): const SizedBox();
+              }).toList(),
               
             ],
           );

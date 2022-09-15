@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                   },
                   icon: HomeRepository.listMenu[index].icon,
                 );
-               }, separatorBuilder: (__ , _)=> const SizedBox(width: 5),
+               }, separatorBuilder: (__ , _)=> const SizedBox(width: 10),
              ),
              ),
            ],
