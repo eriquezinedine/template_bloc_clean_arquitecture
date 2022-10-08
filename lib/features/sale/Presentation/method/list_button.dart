@@ -6,7 +6,7 @@ List<Widget> listButton(TextStyle styleText, BuildContext context) {
     ElevatedButton(
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(15),
-        primary: Colors.green
+        backgroundColor: Colors.green
       ),
       child:  Text('Nueva Venta' , style: styleText,),
       onPressed: (){
@@ -19,7 +19,7 @@ List<Widget> listButton(TextStyle styleText, BuildContext context) {
     ElevatedButton(
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(15),
-        primary: Colors.redAccent
+        backgroundColor: Colors.redAccent
       ),
       child: Text('Nuevo Gasto' , style: styleText,),
       onPressed: (){

@@ -14,7 +14,7 @@ class SpentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  PageWidget(
-      appbar: appbar(title: 'Personas en Gastos'),
+      appbar: appbar(title: 'Deudas de Personas'),
       body: BlocBuilder<PersonBloc, PersonState>(
         builder: (context, statePerson) {
           if(statePerson is PersonLoadedState){
